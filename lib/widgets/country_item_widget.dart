@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class CountryItemWidget extends StatelessWidget {
   final String svgUrl;
   final String name;
-  final int callingCode;
+  final String callingCode;
   const CountryItemWidget({
     super.key,
     required this.svgUrl,
@@ -21,21 +21,20 @@ class CountryItemWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(2.0),
           child: SvgPicture.network(
             svgUrl,
-            width: 25,
+            width: 30,
           ),
         ),
         const SizedBox(width: 10),
         Text(
           '+$callingCode',
-          style: const TextStyle(
-            color: Colors.black,
-          ),
+          style: Theme.of(context).textTheme.bodySmall,
         ),
         const SizedBox(width: 10),
-        Text(
-          name,
-          style: const TextStyle(
-            color: Colors.white,
+        Expanded(
+          child: Text(
+            name,
+            style: Theme.of(context).textTheme.bodyMedium,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],

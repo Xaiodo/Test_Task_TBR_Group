@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:test_task/mixins/modal_bottom_sheet.dart';
 
-class CountryCodeWidget extends StatelessWidget with ModalBottomSheet {
+class CountryCodeWidget extends StatelessWidget with ModalBottomSheetMixin {
   const CountryCodeWidget({super.key});
 
   @override
