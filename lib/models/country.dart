@@ -1,6 +1,6 @@
 class Country {
   final String name;
-  final List<int> callingCodes;
+  final List<String> callingCodes;
   final String flag;
 
   Country({
@@ -12,7 +12,7 @@ class Country {
   factory Country.fromJson(Map<String, dynamic> json) {
     return Country(
       name: json['name'],
-      callingCodes: json['callingCodes'],
+      callingCodes: List<String>.from(json['callingCodes']),
       flag: json['flags']['svg'],
     );
   }
