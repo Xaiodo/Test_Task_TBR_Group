@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as md;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:test_task/blocs/search_bar_block/search_bloc.dart';
 import 'package:test_task/widgets/country_item_widget.dart';
-import 'package:test_task/widgets/text_field_widget.dart';
 
-mixin ModalBottomSheet {
+mixin ModalBottomSheetMixin {
   void addModalBottomSheet(BuildContext context) {
-    md.showMaterialModalBottomSheet(
+    final textController = TextEditingController();
+    showMaterialModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (context) {
@@ -25,27 +28,27 @@ mixin ModalBottomSheet {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Country code',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).inputDecorationTheme.fillColor,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(6),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: Container(
+                        padding: const EdgeInsets.all(2.0),
+                        decoration: BoxDecoration(
+                          color:
+                              Theme.of(context).inputDecorationTheme.fillColor,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(6),
+                          ),
                         ),
-                      ),
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.cancel_outlined,
-                          color: Color(0xff594C74),
+                        child: const Icon(
+                          Icons.close_rounded,
+                          size: 14,
                         ),
-                        style: ButtonStyle(
-                          iconSize: MaterialStateProperty.all(8),
-                        ),
-                        onPressed: () {},
                       ),
                     ),
                   ],
@@ -54,51 +57,57 @@ mixin ModalBottomSheet {
                   height: 10,
                 ),
                 TextField(
+                  controller: textController,
+                  onChanged: (value) {
+                    context.read<SearchBloc>().add(
+                          SearchInputSubmitted(searchInput: value),
+                        );
+                  },
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 15),
-                    filled: true,
-                    suffixIcon: const Icon(
-                      Icons.search,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      child: SvgPicture.asset(
+                        'assets/svg/Search.svg',
+                      ),
                     ),
-                    alignLabelWithHint: true,
                     hintText: 'Search',
-                    fillColor: const Color(0xffF4F5FF).withOpacity(0.4),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: const BorderSide(
-                        width: 0,
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: const BorderSide(
-                        width: 0,
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: const BorderSide(
-                        width: 0,
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    hintStyle: const TextStyle(
-                      color: Color(0xff594C74),
-                      fontWeight: FontWeight.w500,
-                    ),
                   ),
                 ),
-                ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  shrinkWrap: true,
-                  itemCount: 1,
-                  itemBuilder: (context, index) {
-                    return const CountryItemWidget(
-                      svgUrl: 'https://flagcdn.com/mm.svg',
-                      name: 'Myanma',
-                      callingCode: 264,
+                BlocBuilder<SearchBloc, SearchState>(
+                  builder: (context, state) {
+                    if (state is SearchLoading) {
+                      return const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    if (state is SearchLoaded) {
+                      return Expanded(
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) => const SizedBox(
+                            height: 24,
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          itemCount: state.countries.length,
+                          itemBuilder: (context, index) {
+                            return CountryItemWidget(
+                              svgUrl: state.sortedCountries[index].flag,
+                              name: state.sortedCountries[index].name,
+                              callingCode:
+                                  state.sortedCountries[index].callingCodes[0],
+                            );
+                          },
+                        ),
+                      );
+                    }
+                    return const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text('Check your internet connection'),
+                      ),
                     );
                   },
                 ),
