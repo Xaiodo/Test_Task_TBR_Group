@@ -10,6 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.2
+  flutter_bloc: ^8.1.2
+  equatable: ^2.0.5
   http: ^0.13.5
   modal_bottom_sheet:
     git:
@@ -25,6 +27,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/svg/
   fonts:
     - family: Inter
       fonts:

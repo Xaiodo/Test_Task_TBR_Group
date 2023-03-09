@@ -42,6 +42,16 @@ final theme = ThemeData(
       fontWeight: FontWeight.w500,
       height: 1.0,
     ),
+    bodyMedium: TextStyle(
+      fontSize: 16,
+      color: Colors.white,
+      fontWeight: FontWeight.w500,
+    ),
+    bodySmall: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: Color(0xff594C74),
+    ),
     titleLarge: TextStyle(
       fontSize: 32,
       height: 20 / 16,
