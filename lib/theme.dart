@@ -60,10 +60,3 @@ final theme = ThemeData(
     ),
   ),
 );
-
-extension ThemeExtension on ThemeData {
-  Color get keyboardBackgroundColor => const Color(0xffD2D5DB).withOpacity(0.8);
-  Color get keyboardButtonColor => Colors.white;
-  Color get keyboardButtonPressedColor => const Color(0xffa4b5d3);
-  Color get keyboardNumberColor => Colors.black;
-}
