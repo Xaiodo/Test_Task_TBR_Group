@@ -94,10 +94,7 @@ mixin ModalBottomSheetMixin {
                           itemCount: state.countries.length,
                           itemBuilder: (context, index) {
                             return CountryItemWidget(
-                              svgUrl: state.sortedCountries[index].flag,
-                              name: state.sortedCountries[index].name,
-                              callingCode:
-                                  state.sortedCountries[index].callingCodes[0],
+                              country: state.countries[index],
                             );
                           },
                         ),
