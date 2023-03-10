@@ -7,15 +7,16 @@ import 'package:test_task/screens/home_screen.dart';
 import 'theme.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
+  final CountryRepository repository = CountryRepository();
 
   @override
   Widget build(BuildContext context) {
-    final CountryRepository repository = CountryRepository();
+    final countryCode = WidgetsBinding.instance.window.locale.countryCode;
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -25,7 +26,8 @@ class MainApp extends StatelessWidget {
             ),
         ),
         BlocProvider(
-          create: (context) => CountryCubit()..initializeCountryNumber(),
+          create: (context) =>
+              CountryCubit(repository)..initializeCountryNumber(countryCode),
         ),
       ],
       child: MaterialApp(

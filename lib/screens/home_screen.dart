@@ -12,24 +12,20 @@ class HomeScreen extends StatelessWidget {
 
   void _onTap(BuildContext context) {
     print('input successfully submitted');
-    context.read<CountryCubit>().initializeCountryNumber();
+    context.read<CountryCubit>().initializeCountryNumber('');
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CountryCubit, CountryState>(
       builder: (context, state) {
-        var enabled = false;
-        if (state is CountrySubmissionSuccess) {
-          enabled = true;
-        }
         return Scaffold(
           floatingActionButton: FloatingActionButton(
-            onPressed: enabled ? () => _onTap(context) : null,
-            backgroundColor: enabled
+            onPressed: state.isValid ? () => _onTap(context) : null,
+            backgroundColor: state.isValid
                 ? Colors.white
                 : Theme.of(context).floatingActionButtonTheme.backgroundColor,
-            foregroundColor: enabled
+            foregroundColor: state.isValid
                 ? const Color(0xff594C74)
                 : Theme.of(context).floatingActionButtonTheme.foregroundColor,
             child: const Icon(Icons.arrow_forward_rounded),

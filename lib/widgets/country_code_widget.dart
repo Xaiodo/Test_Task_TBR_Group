@@ -22,6 +22,9 @@ class CountryCodeWidget extends StatelessWidget with ModalBottomSheetMixin {
         ),
         child: BlocBuilder<CountryCubit, CountryState>(
           builder: (context, state) {
+            if (state is CountryLoading || state is CountrySubmissionFail) {
+              return Container();
+            }
             return Row(
               mainAxisSize: MainAxisSize.min,
               children: [

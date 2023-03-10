@@ -13,7 +13,13 @@ abstract class CountryState extends Equatable {
     );
   }
 
-  const CountryState(this.svgUrl, this.callNum, this.input);
+  bool get isValid => input.length == 14;
+
+  const CountryState(
+    this.svgUrl,
+    this.callNum,
+    this.input,
+  );
 
   @override
   List<Object> get props => [svgUrl, callNum, input];
@@ -25,6 +31,10 @@ class CountryInitial extends CountryState {
 
 class CountryLoading extends CountryState {
   const CountryLoading(super.svgUrl, super.callNum, super.input);
+}
+
+class CountryLoaded extends CountryState {
+  const CountryLoaded(super.svgUrl, super.callNum, super.input);
 }
 
 class CountrySubmissionFail extends CountryState {
