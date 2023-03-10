@@ -7,7 +7,8 @@ part 'country_state.dart';
 
 class CountryCubit extends Cubit<CountryState> with ValidationInputMixin {
   final CountryRepository repository;
-  CountryCubit(this.repository) : super(const CountryInitial('', '', ''));
+  CountryCubit(this.repository)
+      : super(const CountryInitial('https://flagcdn.com/ua.svg', '380', ''));
 
   void initializeCountryNumber(String? countryCode) async {
     final country = await repository.getCountryByAlphacode(countryCode);
@@ -23,7 +24,7 @@ class CountryCubit extends Cubit<CountryState> with ValidationInputMixin {
   }
 
   void editedCountryNumber(String svg, String callNum) {
-    emit(state.copyWith(svgUrl: svg, callNum: callNum));
+    emit(CountryLoaded(svg, callNum, state.input));
   }
 
   void editedNumberInput(String input) {
