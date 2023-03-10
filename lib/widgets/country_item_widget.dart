@@ -17,7 +17,7 @@ class CountryItemWidget extends StatelessWidget {
       onTap: () {
         context.read<CountryCubit>().editedCountryNumber(
               country.flag,
-              country.callingCodes[0],
+              country.callingCodes.first,
             );
         Navigator.of(context).pop();
       },
@@ -33,7 +33,7 @@ class CountryItemWidget extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Text(
-            '+${country.callingCodes[0]}',
+            '+${country.callingCodes.first}',
             style: Theme.of(context).textTheme.bodySmall,
           ),
           const SizedBox(width: 10),
