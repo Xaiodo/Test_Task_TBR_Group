@@ -44,7 +44,7 @@ mixin ValidationInputMixin {
 
     // Add next three digits
     if (digitsOnly.length >= 6) {
-      newText.write('${digitsOnly.substring(3, 6)}-');
+      newText.write(digitsOnly.substring(3, 6) + '-');
     } else {
       newText.write(digitsOnly.substring(3));
       return newText.toString();

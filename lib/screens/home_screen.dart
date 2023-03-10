@@ -6,6 +6,8 @@ import '../widgets/country_code_widget.dart';
 import '../widgets/text_field_widget.dart';
 
 class HomeScreen extends StatelessWidget {
+  // final Locale deviceLocale;
+
   const HomeScreen({super.key});
 
   void _onTap(BuildContext context) {
@@ -49,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         children: [
-                          const CountryCodeWidget(),
+                          CountryCodeWidget(),
                           const SizedBox(
                             width: 8.0,
                           ),

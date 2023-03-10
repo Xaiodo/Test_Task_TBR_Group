@@ -23,6 +23,10 @@ class CountryInitial extends CountryState {
   const CountryInitial(super.svgUrl, super.callNum, super.input);
 }
 
+class CountryLoading extends CountryState {
+  const CountryLoading(super.svgUrl, super.callNum, super.input);
+}
+
 class CountrySubmissionFail extends CountryState {
   const CountrySubmissionFail(super.svgUrl, super.callNum, super.input);
 }

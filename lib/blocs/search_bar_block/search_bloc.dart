@@ -33,11 +33,20 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchInputSubmitted event,
     Emitter<SearchState> emit,
   ) {
-    emit(SearchLoading(
-        event.searchInput, state.countries, state.sortedCountries));
+    emit(
+      SearchLoading(
+        event.searchInput,
+        state.countries,
+        state.sortedCountries,
+      ),
+    );
     final sortedCountries = state.countries
         .where(
-          (element) => element.name.contains(event.searchInput),
+          (element) =>
+              element.name.toLowerCase().contains(
+                    event.searchInput.toLowerCase(),
+                  ) ||
+              element.callingCodes.first.contains(event.searchInput),
         )
         .toList();
     emit(

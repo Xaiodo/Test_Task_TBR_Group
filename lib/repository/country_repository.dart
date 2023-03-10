@@ -8,8 +8,7 @@ class CountryRepository {
 
   Future<List<Country>?> getAll() async {
     try {
-      final resposne =
-          await http.get(Uri.parse('https://restcountries.com/v2/all'));
+      final resposne = await http.get(Uri.parse('$baseUrl/all'));
       if (resposne.statusCode == 200) {
         final responseBody = (json.decode(resposne.body) as List<dynamic>)
             .map((e) => Map<String, dynamic>.from(e))
@@ -17,7 +16,9 @@ class CountryRepository {
 
         return responseBody.map((e) => Country.fromJson(e)).toList();
       }
-    } catch (e, trace) {}
+    } catch (e) {
+      return null;
+    }
     return null;
   }
 }
