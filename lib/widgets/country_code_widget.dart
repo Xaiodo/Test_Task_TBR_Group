@@ -14,7 +14,8 @@ class CountryCodeWidget extends StatelessWidget with ModalBottomSheetMixin {
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
       child: Container(
-        padding: const EdgeInsets.all(19.5),
+        height: 48,
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
           color: Theme.of(context).floatingActionButtonTheme.backgroundColor,

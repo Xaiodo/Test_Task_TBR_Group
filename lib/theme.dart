@@ -29,6 +29,7 @@ final inputDecorationTheme = InputDecorationTheme(
   hintStyle: const TextStyle(
     color: Color(0xff594C74),
   ),
+  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
 );
 
 final theme = ThemeData(
