@@ -6,28 +6,26 @@ import '../widgets/country_code_widget.dart';
 import '../widgets/text_field_widget.dart';
 
 class HomeScreen extends StatelessWidget {
+  // final Locale deviceLocale;
+
   const HomeScreen({super.key});
 
   void _onTap(BuildContext context) {
     print('input successfully submitted');
-    context.read<CountryCubit>().initializeCountryNumber();
+    context.read<CountryCubit>().initializeCountryNumber('');
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CountryCubit, CountryState>(
       builder: (context, state) {
-        var enabled = false;
-        if (state is CountrySubmissionSuccess) {
-          enabled = true;
-        }
         return Scaffold(
           floatingActionButton: FloatingActionButton(
-            onPressed: enabled ? () => _onTap(context) : null,
-            backgroundColor: enabled
+            onPressed: state.isValid ? () => _onTap(context) : null,
+            backgroundColor: state.isValid
                 ? Colors.white
                 : Theme.of(context).floatingActionButtonTheme.backgroundColor,
-            foregroundColor: enabled
+            foregroundColor: state.isValid
                 ? const Color(0xff594C74)
                 : Theme.of(context).floatingActionButtonTheme.foregroundColor,
             child: const Icon(Icons.arrow_forward_rounded),
@@ -49,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         children: [
-                          const CountryCodeWidget(),
+                          CountryCodeWidget(),
                           const SizedBox(
                             width: 8.0,
                           ),

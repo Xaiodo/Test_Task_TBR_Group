@@ -27,7 +27,7 @@ class SearchLoaded extends SearchState {
   const SearchLoaded(super.query, super.countries, super.sortedCountries);
 
   @override
-  List<Object?> get props => [query, countries];
+  List<Object?> get props => [query, countries, sortedCountries];
 }
 
 class SearchLoadingError extends SearchState {

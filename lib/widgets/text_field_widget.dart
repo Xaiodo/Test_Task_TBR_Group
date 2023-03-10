@@ -12,8 +12,9 @@ class TextFieldWidget extends StatelessWidget {
     return BlocBuilder<CountryCubit, CountryState>(
       builder: (context, state) {
         _controller.text = state.input;
-        _controller.selection =
-            TextSelection.collapsed(offset: _controller.text.length);
+        _controller.selection = TextSelection.collapsed(
+          offset: _controller.text.length,
+        );
         return TextField(
           controller: _controller,
           onChanged: (value) {
